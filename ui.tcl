@@ -156,7 +156,11 @@ if {$::iconik_settings(steam_presets_enabled) == 1} {
 } else {
 	# Two more coffee presets
 	create_button "off"  1580 1140 1980 1380 $::font_tiny [theme button_coffee] [theme button_text_light] {iconik_toggle_profile 4} {[iconik_profile_title 4]}
-	create_button "off" 2080 1140 2480 1380 $::font_tiny [theme button_coffee] [theme button_text_light] {iconik_toggle_profile 5} {[iconik_profile_title 5]}
+	# Describe button to go to godshots page
+	rounded_rectangle "off" 2080 1140 2480 1380 [rescale_x_skin 80] [theme button_steam]
+	add_de1_variable "off"  [expr (2080 + 2480) / 2.0 ] [expr (1140 + 1380) / 2.0 ] -width 180  -text "" -font $::font_tiny -fill [theme button_text_light] -anchor "center" -justify "center" -state "hidden" -textvariable {Describe}
+	add_de1_button "off off_zoomed espresso_3 espresso_3_zoomed off_zoomed_temperature espresso_3_zoomed_temperature" {say [translate {describe}] $::settings(sound_button_in); backup_settings; set_next_page off describe_espresso0; page_show off; set_god_shot_scrollbar_dimensions; } 2080 1140 2480 1380
+	source "[homedir]/skins/Insight/scentone.tcl"
 }
 
 ## Bottom buttons
