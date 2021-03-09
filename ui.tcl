@@ -81,8 +81,13 @@ create_button "settings_1 settings_2 settings_2a settings_2b settings_2c setting
 ## Background
 rectangle "off" 0 0 2560 180 [theme background_highlight]
 
-## Flush
-create_settings_button "off" 80 30 480 150 $::font_tiny [theme button_secondary] [theme button_text_light]  {set ::iconik_settings(flush_timeout) [expr {$::iconik_settings(flush_timeout) - 0.5}]; iconik_save_settings} {  set ::iconik_settings(flush_timeout) [expr {$::iconik_settings(flush_timeout) + 0.5}]; iconik_save_settings} {Flush:\n[round_to_one_digits $::iconik_settings(flush_timeout)]s}
+## clock
+if {$::iconik_settings(show_clock_on_main_page) == 1} {
+	## Show clock
+	create_button "off" 80 30 480 150 $::font_tiny [theme button_secondary] [theme button_text_light] {set ::clocktime [clock seconds]} { [time_format $::clocktime 1]}
+} else {
+	create_settings_button "off" 80 30 480 150 $::font_tiny [theme button_secondary] [theme button_text_light]  {set ::iconik_settings(flush_timeout) [expr {$::iconik_settings(flush_timeout) - 0.5}]; iconik_save_settings} {  set ::iconik_settings(flush_timeout) [expr {$::iconik_settings(flush_timeout) + 0.5}]; iconik_save_settings} {Flush:\n[round_to_one_digits $::iconik_settings(flush_timeout)]s}
+}
 
 ## Espresso Temperature
 create_settings_button "off" 580 30 980 150 $::font_tiny [theme button_secondary] [theme button_text_light] {iconik_temperature_adjust down} {iconik_temperature_adjust up} {Temp:\n [iconik_expresso_temperature]}
